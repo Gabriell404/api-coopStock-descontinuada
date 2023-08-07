@@ -2,8 +2,13 @@
 
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\FornecedoresController;
+use App\Http\Controllers\MovimentoEstoqueController;
+use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\SetoresController;
+use App\Http\Controllers\ColaboradoresController;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;  
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +33,21 @@ Route::delete('/categorias/{id}', [CategoriasController::class, 'destroy'])->nam
 
 // Rotas fornecedores
 Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('fornecedores.index');
+Route::post('/fornecedores', [FornecedoresController::class, 'store'])->name('fornecedores.store');
+Route::put('/fornecedores/{id}', [FornecedoresController::class, 'update'])->name('fornecedores.update');
+Route::delete('/fornecedores/{id}', [FornecedoresController::class, 'destroy'])->name('fornecedores.destroy');
+
+// Rotas setores 
+Route::get('/setores', [SetoresController::class, 'index'])->name('setores.index');
+Route::post('/setores', [SetoresController::class, 'store'])->name('setores.store');
+Route::delete('/setores/{id}', [SetoresController::class, 'destroy'])->name('setores.destroy');
+
+// Rotas movimento_estoque
+Route::get('/movimento-estoque', [MovimentoEstoqueController::class, 'index'])->name('movimento-estoque.index');
+
+//Rotas produtos
+Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
+Route::post('/produtos', [ProdutosController::class, 'store'])->name('produtos.store');
+
+// Rotas colaboradores
+Route::post('/colaboradores', [ColaboradoresController::class, 'importar'])->name('colaboradores.store');

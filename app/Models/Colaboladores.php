@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Setores extends Model
+class Colaboladores extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'cidade', 'estado'];
+    protected $fillable = ['data_admissao', 'cpf', 'nome', 'funcao'];
 }

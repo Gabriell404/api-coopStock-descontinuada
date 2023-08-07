@@ -19,7 +19,6 @@ class CategoriasController extends Controller
 
     public function index(Request $request)
     {
-        // dd($request);
         try {
             $query = $this->categorias->when($request->get('categoria'), function ($query) use ($request) {
                 return $query->where('nome_categoria', '=', $request->get('categoria'));
