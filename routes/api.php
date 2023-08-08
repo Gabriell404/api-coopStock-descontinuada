@@ -6,7 +6,10 @@ use App\Http\Controllers\MovimentoEstoqueController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\SetoresController;
 use App\Http\Controllers\ColaboradoresController;
-
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PerfillController;
+use App\Models\LoginSecurity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,4 +56,20 @@ Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.in
 Route::post('/produtos', [ProdutosController::class, 'store'])->name('produtos.store');
 
 // Rotas colaboradores
+Route::get('/colaboradores', [ColaboradoresController::class, 'index'])->name('colaboradores.index');
 Route::post('/colaboradores', [ColaboradoresController::class, 'importar'])->name('colaboradores.store');
+
+//routes perfil
+Route::get('/perfil', [PerfillController::class, 'listar'])->name('perfil.listar');
+Route::get('/perfil/permissao/{id}', [PerfillController::class, 'listarPermissao'])->name('perfil.listar.permissao');
+Route::post('/perfil', [PerfillController::class, 'create'])->name('perfil.create');
+Route::post('/perfil/{id}', [PerfillController::class, 'permissao'])->name('perfil.permissao');
+
+// Rotas roles
+Route::get('/roles', [RoleController::class, 'listar'])->name('roles.listar');
+Route::post('/roles', [RoleController::class, 'create'])->name('roles.create');
+
+
+
+//Rotas login
+Route::post('/login', [UserController::class, 'login'])->name('login.login');

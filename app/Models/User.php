@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -18,9 +19,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'name', 
+        'email', 
         'password',
+        'last_login',
+        'ip_login'
     ];
 
     /**
@@ -41,4 +44,74 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function loginSecurity()
+    {
+        return $this->hasOne(LoginSecurity::class);
+    }
+
+    public function perfils()
+    {
+        return $this->belongsToMany(Perfil::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function adicionaPerfil($perfil){
+
+        if (is_string($perfil)) {
+            return $this->perfils()->save(
+                Perfils::where('nome', '=', $perfil)->firstOrFail()
+
+            );
+        }
+        return $this->perfils()->save(
+            Perfils::where('nome', '=', $perfil->nome)->firstOrFail()
+        );
+    }
+
+    public function removePerfil($perfil){
+        if (is_string($perfil)) {
+            return $this->perfils()->detach(
+                Perfils::where('nome', '=', $perfil)->firstOrFail()
+
+            );
+        }
+        return $this->perfils()->detach(
+            Perfils::where('nome', '=', $perfil->nome)->firstOrFail()
+
+        );
+    }
+
+    public function existePerfil($perfil){
+
+        if (is_string($perfil)) {
+            return $this->perfils->contains('nome', $perfil);
+        }
+
+        return $perfil->intersect($this->perfils)->count();
+
+    }
+
+    public static function existePermissao(int|string $permissao, int|string $perfil){
+
+        if (DB::table('perfil_role')->where('role_id', $permissao)->where('perfil_id', $perfil)->count()) {
+
+            return true;
+
+        }else{
+            return false;
+        }
+
+    }
+
+    public function existeAdmin()
+    {
+        return $this->existePerfil('Master');
+    }
+
 }
