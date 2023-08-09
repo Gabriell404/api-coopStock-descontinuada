@@ -70,7 +70,7 @@ class UserController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'id' => $user->id,
-                    'description' => $user->description,
+                    'description' => $result['description'],
                     'roles' => $roles
 
                 ],
