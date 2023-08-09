@@ -52,6 +52,7 @@ class UserController extends Controller
                 'last_login' => now()
             ]);
 
+
             Auth::login($user);
             Auth::user()->update([
                 'last_login' => Carbon::now()->toDateTimeString(),
@@ -77,6 +78,7 @@ class UserController extends Controller
             ], 200);
 
         } catch (\Throwable $th) {
+            
             return response()->json([
                 'error' => true,
                 'messagem' => $th->getMessage()

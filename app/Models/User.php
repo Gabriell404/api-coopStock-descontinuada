@@ -58,15 +58,14 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Roles::class);
     }
 
     public function adicionaPerfil($perfil){
 
         if (is_string($perfil)) {
             return $this->perfils()->save(
-                Perfils::where('nome', '=', $perfil)->firstOrFail()
-
+                Perfil::where('nome', '=', $perfil)->firstOrFail()
             );
         }
         return $this->perfils()->save(
@@ -77,12 +76,12 @@ class User extends Authenticatable
     public function removePerfil($perfil){
         if (is_string($perfil)) {
             return $this->perfils()->detach(
-                Perfils::where('nome', '=', $perfil)->firstOrFail()
+                Perfil::where('nome', '=', $perfil)->firstOrFail()
 
             );
         }
         return $this->perfils()->detach(
-            Perfils::where('nome', '=', $perfil->nome)->firstOrFail()
+            Perfil::where('nome', '=', $perfil->nome)->firstOrFail()
 
         );
     }
@@ -99,7 +98,7 @@ class User extends Authenticatable
 
     public static function existePermissao(int|string $permissao, int|string $perfil){
 
-        if (DB::table('perfil_role')->where('role_id', $permissao)->where('perfil_id', $perfil)->count()) {
+        if (DB::table('perfils_roles')->where('roles_id', $permissao)->where('perfils_id', $perfil)->count()) {
 
             return true;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\Perfil\PerfilCollectionResource;
-use App\Models\Perfils;
+use App\Models\Perfil;
 use App\Models\Roles;
 use App\Models\User;
 use Exception;
@@ -15,7 +15,7 @@ class PerfillController extends Controller
     public function listar()
     {
         try {
-            return new PerfilCollectionResource(Perfils::paginate(10));
+            return new PerfilCollectionResource(Perfil::paginate(10));
             
         } catch(Exception $e){
             return response()->json([
@@ -30,7 +30,7 @@ class PerfillController extends Controller
         try {
             DB::beginTransaction();
 
-            Perfils::create([
+            Perfil::create([
                 'nome' => $request->get('nome'),
                 'descricao' => $request->get('descricao'),
             ]);
@@ -57,7 +57,7 @@ class PerfillController extends Controller
         try {
             DB::beginTransaction();
 
-            $perfil = Perfils::findOrFail($id);
+            $perfil = Perfil::findOrFail($id);
             $permissao = Roles::findOrFail($request->get('permissao'));
             $message = '';
 
@@ -89,7 +89,7 @@ class PerfillController extends Controller
     {
         try {
 
-            $perfil = Perfils::findOrFail($id);
+            $perfil = Perfil::findOrFail($id);
 
             return response()->json([
                'data' => $perfil->permissoes

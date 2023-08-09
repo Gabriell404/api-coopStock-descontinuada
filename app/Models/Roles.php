@@ -16,6 +16,6 @@ class Roles extends Model
 
     public function papeis()
     {
-        return $this->belongsToMany(Perfils::class);
+        return $this->belongsToMany(Perfil::class);
     }
 }

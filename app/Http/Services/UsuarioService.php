@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Services;
-use App\Models\Role;
+use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -15,6 +15,6 @@ class UsuarioService {
     }
 
     public function getRole(string $role): string {
-        return Role::where('nome', $role)->first()->descricao;
+        return Roles::where('nome', $role)->first()->descricao;
     }
 }
