@@ -55,6 +55,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/colaboradores', [ColaboradoresController::class, 'index'])->name('colaboradores.index');
     Route::post('/colaboradores', [ColaboradoresController::class, 'importar'])->name('colaboradores.store');
 
+    Route::post('/logout', [UserController::class, 'logout'])->name('login.logout');
+
+    Route::post('/logout', [UserController::class, 'logout'])->name('login.logout');
+
     //routes perfil
     Route::get('/perfil', [PerfillController::class, 'listar'])->name('perfil.listar');
     Route::get('/perfil/permissao/{id}', [PerfillController::class, 'listarPermissao'])->name('perfil.listar.permissao');
@@ -66,5 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/roles', [RoleController::class, 'create'])->name('roles.create');
     
 });
+
 //Rotas login
 Route::post('/login', [UserController::class, 'login'])->name('login.login');
+
