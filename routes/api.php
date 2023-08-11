@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Rotas produtos
     Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
     Route::post('/produtos', [ProdutosController::class, 'store'])->name('produtos.store');
+    Route::put('/produtos', [ProdutosController::class, 'update'])->name('produtos.update');
 
     // Rotas colaboradores
     Route::get('/colaboradores', [ColaboradoresController::class, 'index'])->name('colaboradores.index');

@@ -58,4 +58,23 @@ class ProdutosController extends Controller
             return response($th);
         }
     }
+
+    public function update(Request $request)
+    {
+        try {
+            $produto = $this->produtos::find($request->id);
+            $produto->update($request->all());
+
+            return response()->json([
+                "success" => true,
+                "messagem" => 'O produto foi editado com sucesso!'
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                "success" => false,
+                "error" => $th
+            ], 500);
+        }
+    }
 }
