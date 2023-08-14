@@ -18,7 +18,7 @@ class ProdutosController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = $this->produtos->with('categoria', 'fornecedor', 'colaborador')
+            $query = $this->produtos->with('categoria', 'fornecedor', 'colaborador', 'setor_responsavel')
             ->when($request->get('id'), function ($query) use ($request){
                 return $query->where('id', '=', $request->get('id'));
             })
@@ -50,7 +50,7 @@ class ProdutosController extends Controller
                 'estado' => $request->get('estado'),
                 'fornecedor_id' => $request->get('fornecedor_id'),
                 'categoria_id' => $request->get('categoria_id'),
-                'colaborador_id' => $request->get('colaborador_id'),
+                'setor_id' => $request->get('setor_id'),
             ]);
 
             return response()->json($produto);

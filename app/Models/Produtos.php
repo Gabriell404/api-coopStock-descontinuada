@@ -17,7 +17,7 @@ class Produtos extends Model
                             'estado', 
                             'fornecedor_id', 
                             'categoria_id',
-                            'colaborador_id'
+                            'setor_id'
                         ];
 
     public function categoria()
@@ -33,5 +33,9 @@ class Produtos extends Model
     public function colaborador()
     {
         return $this->belongsTo(Colaboladores::class, 'colaborador_id');
+    }
+
+    public function setor_responsavel() {
+        return $this->belongsTo(Setores::class, 'setor_id');
     }
 }

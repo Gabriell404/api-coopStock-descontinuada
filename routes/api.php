@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/categorias/{id}', [CategoriasController::class, 'destroy'])->name('categoria.destroy');
 
     // Rotas fornecedores
+    Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('fornecedores.index');
     Route::post('/fornecedores', [FornecedoresController::class, 'store'])->name('fornecedores.store');
     Route::put('/fornecedores/{id}', [FornecedoresController::class, 'update'])->name('fornecedores.update');
     Route::delete('/fornecedores/{id}', [FornecedoresController::class, 'destroy'])->name('fornecedores.destroy');

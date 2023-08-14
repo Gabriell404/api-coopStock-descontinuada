@@ -12,7 +12,7 @@ class ProdutosStoreRequest extends FormRequest {
             'estado' => 'required|max:30',
             'fornecedor_id' => 'required',
             'categoria_id' =>  'required',
-            'colaborador_id' => 'required',
+            'setor_id' => 'required',
         ];
     }
 
@@ -25,7 +25,7 @@ class ProdutosStoreRequest extends FormRequest {
             'estado.max' => 'O campo :attribute aceita no maximo :max caracteres',
             'fornecedor_id.required' => 'O campo :attribute não pode ser vazio',
             'categoria_id.required' => 'O campo :attribute não pode ser vazio',
-            'colaborador_id.required' => 'O campo :attribute não pode ser vazio'
+            'setor_id.required' => 'O campo :attribute não pode ser vazio',
         ];
     }
 
