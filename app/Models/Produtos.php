@@ -32,7 +32,7 @@ class Produtos extends Model
 
     public function colaborador()
     {
-        return $this->belongsTo(Colaboladores::class, 'colaborador_id');
+        return $this->belongsTo(Colaboladores::class, 'colabolador_id');
     }
 
     public function setor_responsavel() {

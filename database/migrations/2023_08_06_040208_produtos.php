@@ -24,6 +24,8 @@ return new class extends Migration
             $table->unsignedBigInteger('fornecedor_id');
             $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('colabolador_id');
+            $table->unsignedBigInteger('setor_id');
+            $table->foreign('setor_id')->references('id')->on('setores');
             $table->foreign('fornecedor_id')->references('id')->on('fornecedores');
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->foreign('colabolador_id')->references('id')->on('colaboladores');

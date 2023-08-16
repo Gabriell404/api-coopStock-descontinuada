@@ -26,7 +26,7 @@ use function PHPSTORM_META\map;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {});
     //Rotas categorias
     Route::get('/categorias', [CategoriasController::class, 'index'])->name('categorias.index');
     Route::post('/categorias', [CategoriasController::class, 'store'])->name('categorias.store');
@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
     Route::post('/produtos', [ProdutosController::class, 'store'])->name('produtos.store');
     Route::put('/produtos', [ProdutosController::class, 'update'])->name('produtos.update');
+    Route::patch('/produtos', [ProdutosController::class, 'patch'])->name('produto.patch');
 
     // Rotas colaboradores
     Route::get('/colaboradores', [ColaboradoresController::class, 'index'])->name('colaboradores.index');
@@ -71,7 +72,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/roles', [RoleController::class, 'listar'])->name('roles.listar');
     Route::post('/roles', [RoleController::class, 'create'])->name('roles.create');
     
-});
 
 //Rotas login
 Route::post('/login', [UserController::class, 'login'])->name('login.login');

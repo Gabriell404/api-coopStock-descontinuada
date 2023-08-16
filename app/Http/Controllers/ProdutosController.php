@@ -77,4 +77,24 @@ class ProdutosController extends Controller
             ], 500);
         }
     }
+
+    public function patch(Request $request)
+    {
+        try {
+            $produto = $this->produtos::find($request->id);
+            if(!$produto) {
+                return response()->json([
+                    'erro' => true,
+                    'messagem' => 'Nenhum item foi encontrado'
+                ]);
+            }
+            $produto->colabolador_id = $request->colaborador_id;
+            $produto->save();
+
+            return response()->json($produto);
+
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 }
