@@ -30,9 +30,21 @@ class ProdutosController extends Controller
             })
             ->when($request->get('numero_de_patrimonio'), function ($query) use ($request) {
                 return $query->get('numero_de_patrimonio', '=', $request->get('numero_de_patrimonio'));
-            })->get();
+            })
+            ->when($request->get('page'), function ($query) use($request){
+                if($request->get('page') < 0){
+                    return $query->get();
+                }
+
+                return $query->paginate(8);
+
+
+            }, function ($query){
+                return $query->get();
+            });
 
             return response()->json($query);
+
         } catch (\Throwable $th) {
             return $th;
         }
@@ -88,7 +100,7 @@ class ProdutosController extends Controller
                     'messagem' => 'Nenhum item foi encontrado'
                 ]);
             }
-            $produto->colabolador_id = $request->colaborador_id;
+            $produto->colaborador_id = $request->colaborador_id;
             $produto->save();
 
             return response()->json($produto);
