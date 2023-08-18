@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Rotas movimento_estoque
     Route::get('/movimento-estoque', [MovimentoEstoqueController::class, 'index'])->name('movimento-estoque.index');
+    Route::get('/movimento-estoque/{id}', [MovimentoEstoqueController::class, 'find'])->name('movimento-estoque.index');
     Route::post('/movimento-estoque', [MovimentoEstoqueController::class, 'store'])->name('movimento-estoque.store');
 
     //Rotas produtos

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movimento_estoque;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MovimentoEstoqueController extends Controller
 {
@@ -19,6 +20,9 @@ class MovimentoEstoqueController extends Controller
             $query = $this->movimento->with('produto', 'origem', 'destino')
             ->when($request->get('id'), function ($query) use ($request) {
                 return $query->where('id', '=', $request->get('id'));
+            })
+            ->when($request->get('produtoId'), function ($query) use ($request) {
+                return $query->where('produto_id', '=' , $request->get('produtoId'));
             })->get();
 
             return response()->json($query);

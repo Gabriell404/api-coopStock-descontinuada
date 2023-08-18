@@ -3,47 +3,53 @@
 namespace App\Http\Controllers;
 
 use App\Http\Request\Produtos\ProdutosStoreRequest;
+use App\Models\Movimento_estoque;
 use App\Models\Produtos;
-
+use App\Models\Setores;
 use Illuminate\Http\Request;
 
 class ProdutosController extends Controller
 {
     private $produtos;
+    private $movimentoEstoque;
+    private $setor;
 
-    public function __construct(Produtos $produtos) {
+    public function __construct(Produtos $produtos, Movimento_estoque $movimentoEstoque, Setores $setor) {
         $this->produtos = $produtos;
+        $this->movimentoEstoque = $movimentoEstoque;
+        $this->setor = $setor;
     }
 
     public function index(Request $request)
     {
         try {
-            $query = $this->produtos->with('categoria', 'fornecedor', 'colaborador', 'setor_responsavel')
-            ->when($request->get('id'), function ($query) use ($request){
-                return $query->where('id', '=', $request->get('id'));
-            })
-            ->when($request->get('produto'), function ($query) use ($request) {
-                return $query->where('produto', '=', $request->get('produto'));
-            })
-            ->when($request->get('numero_de_serie'), function ($query) use ($request) {
-                return $query->where('numero_de_serie', '=', $request->get('numero_de_serie'));
-            })
-            ->when($request->get('numero_de_patrimonio'), function ($query) use ($request) {
-                return $query->get('numero_de_patrimonio', '=', $request->get('numero_de_patrimonio'));
-            })
-            ->when($request->get('page'), function ($query) use($request){
-                if($request->get('page') < 0){
+                $query = $this->produtos->with('categoria', 'fornecedor', 'colaborador', 'setorResponsavel')
+                ->when($request->get('id'), function ($query) use ($request){
+                    return $query->where('id', '=', $request->get('id'));
+                })
+                ->when($request->get('produto'), function ($query) use ($request) {
+                    return $query->where('produto', '=', $request->get('produto'));
+                })
+                ->when($request->get('numero_de_serie'), function ($query) use ($request) {
+                    return $query->where('numero_de_serie', '=', $request->get('numero_de_serie'));
+                })
+                ->when($request->get('numero_de_patrimonio'), function ($query) use ($request) {
+                    return $query->get('numero_de_patrimonio', '=', $request->get('numero_de_patrimonio'));
+                })
+                ->when($request->get('page'), function ($query) use($request){
+                    
+                    if($request->get('page') < 0){
+                        return $query->get();
+                    }
+
+                    return $query->paginate(8);
+
+
+                }, function ($query){
                     return $query->get();
-                }
+                });
 
-                return $query->paginate(8);
-
-
-            }, function ($query){
-                return $query->get();
-            });
-
-            return response()->json($query);
+                return response()->json($query);
 
         } catch (\Throwable $th) {
             return $th;
@@ -100,11 +106,19 @@ class ProdutosController extends Controller
                     'messagem' => 'Nenhum item foi encontrado'
                 ]);
             }
+
+            // Criação do historico de movimento
+            $this->movimentoEstoque->create([
+                'descricao' => 'Movimento de estoque',
+                'produto_id' => $produto->id,
+                'origem_id' => $produto->setor_id,
+                'destino_id' => $produto->setor_id
+            ]);
+
             $produto->colaborador_id = $request->colaborador_id;
             $produto->save();
 
             return response()->json($produto);
-
         } catch (\Throwable $th) {
             return $th;
         }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Produtos extends Model
 {
@@ -35,7 +36,7 @@ class Produtos extends Model
         return $this->belongsTo(Colaboladores::class, 'colaborador_id');
     }
 
-    public function setor_responsavel() {
+    public function setorResponsavel() {
         return $this->belongsTo(Setores::class, 'setor_id');
     }
 }
