@@ -13,6 +13,7 @@ class ProdutosController extends Controller
     private $produtos;
     private $movimentoEstoque;
     private $setor;
+    private $movimentoProduto;
 
     public function __construct(Produtos $produtos, Movimento_estoque $movimentoEstoque, Setores $setor) {
         $this->produtos = $produtos;
@@ -100,6 +101,7 @@ class ProdutosController extends Controller
     {
         try {
             $produto = $this->produtos::find($request->id);
+
             if(!$produto) {
                 return response()->json([
                     'erro' => true,
@@ -108,17 +110,17 @@ class ProdutosController extends Controller
             }
 
             // Criação do historico de movimento
-            $this->movimentoEstoque->create([
+            $queryMovimentoEstoque = $this->movimentoEstoque->create([
                 'descricao' => 'Movimento de estoque',
                 'produto_id' => $produto->id,
-                'origem_id' => $produto->setor_id,
-                'destino_id' => $produto->setor_id
+                'origem_id' => 1,
+                'destino_id' => 1,
+                'colaborador_id' => $request->colaborador_id,
             ]);
 
             $produto->colaborador_id = $request->colaborador_id;
             $produto->save();
-
-            return response()->json($produto);
+            return response()->json($queryMovimentoEstoque);
         } catch (\Throwable $th) {
             return $th;
         }

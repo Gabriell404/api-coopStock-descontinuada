@@ -9,7 +9,7 @@ class Movimento_estoque extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['descricao', 'produto_id', 'origem_id', 'destino_id'];
+    protected $fillable = ['descricao', 'produto_id', 'origem_id', 'destino_id', 'colaborador_id'];
 
     public function produto()
     {
@@ -21,8 +21,8 @@ class Movimento_estoque extends Model
         return $this->belongsTo(Setores::class, 'origem_id');
     }
 
-    public function destino()
+    public function colaborador()
     {
-        return $this->belongsTo(Setores::class, 'destino_id');
+        return $this->belongsTo(Colaboladores::class, 'colaborador_id');
     }
 }

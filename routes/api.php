@@ -6,6 +6,7 @@ use App\Http\Controllers\MovimentoEstoqueController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\SetoresController;
 use App\Http\Controllers\ColaboradoresController;
+use App\Http\Controllers\MovimentoProdutosController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PerfillController;
@@ -46,7 +47,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Rotas movimento_estoque
     Route::get('/movimento-estoque', [MovimentoEstoqueController::class, 'index'])->name('movimento-estoque.index');
-    Route::get('/movimento-estoque/{id}', [MovimentoEstoqueController::class, 'find'])->name('movimento-estoque.index');
     Route::post('/movimento-estoque', [MovimentoEstoqueController::class, 'store'])->name('movimento-estoque.store');
 
     //Rotas produtos
