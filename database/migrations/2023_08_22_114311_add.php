@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('movimento_estoques', function (Blueprint $table) {
-            $table->unsignedBigInteger('colaborador_id');
-            $table->foreign('colaborador_id')->references('id')->on('colaboladores');
+        Schema::table('categorias', function (Blueprint $table) {
+            $table->integer('quantidade');
         });
     }
 

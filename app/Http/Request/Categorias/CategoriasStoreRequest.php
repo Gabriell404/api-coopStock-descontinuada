@@ -8,7 +8,7 @@ class CategoriasStoreRequest extends FormRequest {
     public function rules()
     {
         return [
-            'categoria' => 'required|min:2|max:100'
+            'categoria' => 'required|min:2|max:100',
         ];
     }
 
@@ -17,7 +17,7 @@ class CategoriasStoreRequest extends FormRequest {
         return [
             'categoria.required' => 'O campo :attribute não pode ser vazio',
             'categoria.min' => 'O campo :attribute não aceita menos de :min caracteres',
-            'categoria.max' => 'O campo :attribute tem o limite de :max caracteres'
+            'categoria.max' => 'O campo :attribute tem o limite de :max caracteres',
         ];
     }
 

@@ -37,7 +37,8 @@ class CategoriasController extends Controller
     public function store(CategoriasStoreRequest $request)
     {
         $categoria = $this->categorias->create([
-            'nome_categoria' => $request->get('categoria')
+            'nome_categoria' => $request->get('categoria'),
+            'quantidade' => $request->get('quantidade')
         ]);
 
         return response()->json($categoria, 201);

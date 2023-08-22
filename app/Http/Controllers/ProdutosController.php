@@ -60,11 +60,16 @@ class ProdutosController extends Controller
     public function store(ProdutosStoreRequest $request) 
     {
         try {
+            // Tratando o valor monetario 
+            $valorString = $request->get('valor');
+            $valorString = str_replace(',', '.', $valorString); 
+            $valorFloat = (float) $valorString; 
+
             $produto = $this->produtos->create([
                 'produto' => $request->get('produto'),
                 'numero_de_serie' => $request->get('numero_de_serie'),
                 'detalhes' => $request->get('detalhes'),
-                'valor' => $request->get('valor'),
+                'valor' => $valorFloat,
                 'numero_de_patrimonio' => $request->get('numero_de_patrimonio'),
                 'estado' => $request->get('estado'),
                 'fornecedor_id' => $request->get('fornecedor_id'),
