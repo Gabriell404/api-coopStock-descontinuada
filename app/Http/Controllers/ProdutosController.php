@@ -123,7 +123,12 @@ class ProdutosController extends Controller
                 'colaborador_id' => $request->colaborador_id,
             ]);
 
-            $produto->colaborador_id = $request->colaborador_id;
+            $produto->update([
+                'colaborador_id' => $request->colaborador_id,
+                'estado' => 'alocado',
+            ]);
+            
+            // $produto->colaborador_id = $request->colaborador_id;
             $produto->save();
             return response()->json($queryMovimentoEstoque);
         } catch (\Throwable $th) {
